@@ -1,10 +1,10 @@
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "./Component/Navbar";
-import Footer from "./Component/Footer";  
-import  ThemeProvider  from "./Component/Context/ThemeContext"
+import Footer from "./Component/Footer";
+import ThemeProvider from "./Component/Context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,10 +27,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
+        <Script
+          src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.11/dist/dotlottie-wc.js"
+          strategy="beforeInteractive"
+          type="module"
+        />
         <ThemeProvider>
           <Navbar />
           {children}

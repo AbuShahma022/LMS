@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   RiMenu3Line,
   RiCloseLine,
@@ -38,9 +39,11 @@ function Navbar() {
               {isDark ? <RiSunLine /> : <RiMoonLine />}
             </button>
 
-            <button className=" dark:text-gray-200 hover:text-blue-600">
-              Sign in
-            </button>
+            <Link href="/user/login">
+              <button className=" dark:text-gray-200 hover:text-blue-600">
+                Sign in
+              </button>
+            </Link>
 
             <button className="bg-blue-600 text-white px-4 py-2 rounded-md">
               Join
@@ -48,8 +51,6 @@ function Navbar() {
           </div>
         </div>
       </nav>
-
-      
     </>
   );
 }

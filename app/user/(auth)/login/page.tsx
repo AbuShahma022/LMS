@@ -3,7 +3,7 @@ import LoginComponent from '../../../Component/User/LoginComponent'
 
 const Login = () => {
   return (
-    <div><LoginComponent /></div>
+    <div className="overflow-x-hidden w-full"><LoginComponent /></div>
   )
 }
 
