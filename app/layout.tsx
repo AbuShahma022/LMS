@@ -41,8 +41,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Navbar />
           {children}
-          <UserComponent/>
-<RegistrationComponent/>
+          
 
 
           <Footer />

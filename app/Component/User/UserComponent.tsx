@@ -1,40 +1,75 @@
-"use client";  // ✅ Add this line at the very top
+"use client";
 
-import React, { useState } from "react";
-import { FaUserGraduate, FaChalkboardTeacher, FaTimes } from "react-icons/fa";
+import Link from "next/link";
+import React from "react";
+import { FaUserGraduate, FaChalkboardTeacher } from "react-icons/fa";
 
 const UserComponent = () => {
-  const [showCard, setShowCard] = useState(true);
-
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      {showCard && (
-        <div className="w-full max-w-md border border-gray-200 rounded-xl shadow-lg p-8 text-center space-y-6 relative">
-          {/* Close Icon */}
-          <button
-            onClick={() => setShowCard(false)}
-            className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition cursor-pointer"
-          >
-            <FaTimes className="text-xl" />
-          </button>
-
-          <h2 className="text-3xl font-bold text-gray-800 tracking-tight">Join as</h2>
-
-          <div className="flex flex-col gap-6">
-            {/* Student Option */}
-            <button className="flex items-center justify-center gap-3 px-6 py-4 border border-gray-300 rounded-lg hover:shadow-md transition cursor-pointer">
-              <FaUserGraduate className="text-blue-600 text-2xl" />
-              <span className="text-lg font-semibold text-gray-700">Student</span>
-            </button>
-
-            {/* Teacher Option */}
-            <button className="flex items-center justify-center gap-3 px-6 py-4 border border-gray-300 rounded-lg hover:shadow-md transition cursor-pointer">
-              <FaChalkboardTeacher className="text-indigo-600 text-2xl" />
-              <span className="text-lg font-semibold text-gray-700">Teacher</span>
-            </button>
-          </div>
+    <div className="min-h-screen flex items-center justify-center  dark:bg-[#020617]">
+      <div className="w-full max-w-md rounded-2xl shadow-xl  dark:bg-[#020617] border border-gray-200 dark:border-gray-800 p-8">
+        
+        {/* Heading */}
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold  dark:text-gray-100">
+            Join as
+          </h2>
+          <p className="mt-2  dark:text-gray-400">
+            Choose how you want to continue
+          </p>
         </div>
-      )}
+
+        {/* Options */}
+        <div className="space-y-5">
+          {/* Student */}
+          <Link href="/user/registration"
+            className="
+              w-full flex items-center gap-4 p-5
+              border  dark:border-gray-700
+              rounded-xl
+              hover:border-blue-600  dark:hover:bg-blue-900/20
+              transition
+            "
+          >
+            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30">
+              <FaUserGraduate className="text-blue-600 text-xl" />
+            </div>
+
+            <div className="text-left">
+              <p className="text-lg font-semibold  dark:text-gray-100">
+                Student
+              </p>
+              <p className="text-sm  dark:text-gray-400">
+                Learn new skills and access courses
+              </p>
+            </div>
+          </Link>
+
+          {/* Teacher */}
+          <Link href="/user/registration"
+            className="
+              w-full flex items-center gap-4 p-5
+              border border-gray-200 dark:border-gray-700
+              rounded-xl
+              hover:border-indigo-600  dark:hover:bg-indigo-900/20
+              transition
+            "
+          >
+            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900/30">
+              <FaChalkboardTeacher className="text-indigo-600 text-xl" />
+            </div>
+
+            <div className="text-left">
+              <p className="text-lg font-semibold dark:text-gray-100">
+                Teacher
+              </p>
+              <p className="text-sm  dark:text-gray-100">
+                Create courses and teach students
+              </p>
+            </div>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };

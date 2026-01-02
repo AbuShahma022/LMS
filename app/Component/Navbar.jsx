@@ -2,115 +2,160 @@
 
 import React, { useState } from "react";
 import {
+  RiMenu3Line,
   RiCloseLine,
   RiBookLine,
   RiMoonLine,
   RiSunLine,
 } from "react-icons/ri";
 import { useTheme } from "../Component/Context/ThemeContext";
+import Link from "next/link";
 
-function Navbar() {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
 
   return (
     <>
-      {/* ================= DESKTOP NAVBAR ================= */}
-      <nav className="hidden md:flex w-full h-16 dark:bg-[#020617] shadow-md">
-        <div className="max-w-7xl mx-auto px-4 w-full flex items-center justify-between">
-          <div className="text-xl font-bold text-blue-600">LMS</div>
-
-          <ul className="flex items-center gap-8 dark:text-gray-200">
-            <li className="hover:text-blue-600 cursor-pointer">Home</li>
-            <li className="hover:text-blue-600 flex items-center gap-1 cursor-pointer">
-              <RiBookLine /> Courses
-            </li>
-            <li className="hover:text-blue-600 cursor-pointer">About</li>
-            <li className="hover:text-blue-600 cursor-pointer">Contact</li>
-          </ul>
-
-          <div className="flex items-center gap-4">
-            <button onClick={toggleTheme} className="text-xl dark:text-gray-200">
-              {isDark ? <RiSunLine /> : <RiMoonLine />}
-            </button>
-
-            <button className="dark:text-gray-200 hover:text-blue-600">
-              Sign in
-            </button>
-
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-md">
-              Join
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* ================= MOBILE / MEDIUM NAVBAR ================= */}
-      <nav className="md:hidden w-full h-16 flex items-center justify-between px-4 shadow-md dark:bg-[#020617]">
+      {/* ================= NAVBAR ================= */}
+      <nav className="fixed top-0 z-50 w-full h-14 px-4 md:px-8 flex items-center justify-between shadow-md dark:bg-[#020617]">
+        {/* Logo */}
         <div className="text-xl font-bold text-blue-600">LMS</div>
 
-        {/* CUSTOM HAMBURGER BUTTON */}
-        <button
-          onClick={() => setOpen(true)}
-          className="group flex flex-col gap-1.5 cursor-pointer"
-        >
-          {/* First line (big - fixed) */}
-          <span className="h-0.5 w-7 bg-black dark:bg-white"></span>
-
-          {/* Middle line (small → big, RIGHT to LEFT) */}
-          <span
-            className="
-              h-0.5 w-4 self-end
-              bg-black dark:bg-white
-              transition-all duration-300
-              group-hover:w-7
-            "
-          ></span>
-
-          {/* Last line (big - fixed) */}
-          <span className="h-0.5 w-7 bg-black dark:bg-white"></span>
-        </button>
-      </nav>
-
-      {/* ================= SLIDE MENU ================= */}
-      <div
-        className={`fixed top-0 right-0 h-full w-[70%] max-w-sm 
-        bg-white dark:bg-[#020617] shadow-lg z-50
-        transform transition-transform duration-300
-        ${open ? "translate-x-0" : "translate-x-full"}`}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b dark:border-gray-800">
-          <h2 className="text-lg font-semibold dark:text-gray-200">Menu</h2>
-          <button
-            onClick={() => setOpen(false)}
-            className="text-2xl dark:text-gray-200 cursor-pointer"
-          >
-            <RiCloseLine />
-          </button>
-        </div>
-
-        {/* Menu Items */}
-        <ul className="flex flex-col gap-6 p-6 dark:text-gray-200">
+        {/* ===== DESKTOP MENU ===== */}
+        <ul className="hidden md:flex items-center gap-8 dark:text-gray-200">
           <li className="hover:text-blue-600 cursor-pointer">Home</li>
-          <li className="flex items-center gap-2 hover:text-blue-600 cursor-pointer">
+          <li className="flex items-center gap-1 hover:text-blue-600 cursor-pointer">
             <RiBookLine /> Courses
           </li>
           <li className="hover:text-blue-600 cursor-pointer">About</li>
           <li className="hover:text-blue-600 cursor-pointer">Contact</li>
         </ul>
 
-        {/* Bottom Actions */}
-        <div className="absolute bottom-6 left-0 w-full px-6 flex items-center justify-between">
-          <button onClick={toggleTheme} className="text-xl dark:text-gray-200">
+        {/* ===== RIGHT SIDE ===== */}
+        <div className="flex items-center gap-4">
+          {/* Dark mode → DESKTOP ONLY */}
+          <button
+            onClick={toggleTheme}
+            className="hidden md:block text-xl dark:text-gray-200"
+          >
             {isDark ? <RiSunLine /> : <RiMoonLine />}
           </button>
 
-          <button className="text-blue-600 cursor-pointer">Sign in</button>
+          {/* Login → DESKTOP ONLY */}
+          <Link href="/user/login" className="hidden md:block dark:text-gray-200 hover:text-blue-600">
+            Login
+          </Link>
+
+          {/* Join → DESKTOP ONLY */}
+          <Link href="/user" className="hidden md:block bg-blue-600 text-white px-4 py-1.5 rounded-md">
+            Join now
+          </Link>
+
+          {/* Hamburger → MOBILE ONLY */}
+          {!open && (
+            <button
+              onClick={() => setOpen(true)}
+              className="md:hidden text-2xl dark:text-gray-200"
+            >
+              <RiMenu3Line />
+            </button>
+          )}
         </div>
-      </div>
+      </nav>
+
+      {/* ================= BACKDROP (MOBILE) ================= */}
+      {open && (
+        <div
+          onClick={() => setOpen(false)}
+          className="fixed inset-0  dark:bg-[#020617] z-40 md:hidden"
+        />
+      )}
+
+      {/* ================= SIDEBAR (MOBILE) ================= */}
+      <aside
+        className={`fixed top-0 right-0 h-screen w-[75%] max-w-xs
+        dark:bg-[#020617]
+        shadow-2xl z-50
+        transform transition-transform duration-300
+        ${open ? "translate-x-0" : "translate-x-full"}`}
+      >
+        {/* Sidebar header */}
+        <div className="h-14 flex items-center justify-between px-4">
+          <span className="font-semibold dark:text-gray-200">Menu</span>
+
+          <button
+            onClick={() => setOpen(false)}
+            className="text-2xl dark:text-gray-200"
+          >
+            <RiCloseLine />
+          </button>
+        </div>
+
+        {/* Sidebar links */}
+        <ul className="flex flex-col gap-6 p-6 dark:text-gray-200">
+          <li onClick={() => setOpen(false)} className="hover:text-blue-600 cursor-pointer">
+            Home
+          </li>
+          <li
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2 hover:text-blue-600 cursor-pointer"
+          >
+            <RiBookLine /> Courses
+          </li>
+          <li onClick={() => setOpen(false)} className="hover:text-blue-600 cursor-pointer">
+            About
+          </li>
+          <li onClick={() => setOpen(false)} className="hover:text-blue-600 cursor-pointer">
+            Contact
+          </li>
+        </ul>
+
+        {/* Mobile actions */}
+       <div className="absolute bottom-6 left-0 w-full px-6 space-y-4">
+  {/* Login */}
+  <Link
+    href="/user/login"
+    className="
+      block w-full text-center
+      py-2
+      rounded-md
+      dark:text-gray-200
+      hover:text-blue-600
+      border border-transparent
+    "
+  >
+    Login
+  </Link>
+
+  {/* Join now */}
+  <Link
+    href="/user"
+    className="
+      block w-full text-center
+      bg-blue-600 text-white
+      py-2
+      rounded-md
+      hover:bg-blue-700
+    "
+    onClick={()=> setOpen(false)}
+  >
+    Join now
+  </Link>
+
+  {/* Mobile dark toggle */}
+  <button
+    onClick={toggleTheme}
+    className="flex items-center justify-center gap-2 w-full dark:text-gray-200"
+  >
+    {isDark ? <RiSunLine /> : <RiMoonLine />}
+    <span>Toggle theme</span>
+  </button>
+</div>
+      </aside>
+
+      {/* Spacer for fixed navbar */}
+      <div className="h-14" />
     </>
   );
 }
-
-export default Navbar;
