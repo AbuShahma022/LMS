@@ -5,22 +5,6 @@ import { FaEyeSlash } from "react-icons/fa";
 import { SiGoogle } from "react-icons/si";
 import Link from "next/link";
 
-// Declare the dotlottie-wc web component type
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      "dotlottie-wc": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement> & {
-          src?: string;
-          autoplay?: boolean;
-          loop?: boolean;
-        },
-        HTMLElement
-      >;
-    }
-  }
-}
-
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
