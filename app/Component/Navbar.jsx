@@ -24,7 +24,7 @@ export default function Navbar() {
 
         {/* ===== DESKTOP MENU ===== */}
         <ul className="hidden md:flex items-center gap-8 dark:text-gray-200">
-          <li className="hover:text-blue-600 cursor-pointer">Home</li>
+          <Link href="/" className="hover:text-blue-600 cursor-pointer">Home</Link>
           <li className="flex items-center gap-1 hover:text-blue-600 cursor-pointer">
             <RiBookLine /> Courses
           </li>
@@ -76,7 +76,7 @@ export default function Navbar() {
       <aside
         className={`fixed top-0 right-0 h-screen w-[75%] max-w-xs
         dark:bg-[#020617]
-        shadow-2xl z-50
+        shadow-2xl z-999
         transform transition-transform duration-300
         ${open ? "translate-x-0" : "translate-x-full"}`}
       >
@@ -94,9 +94,9 @@ export default function Navbar() {
 
         {/* Sidebar links */}
         <ul className="flex flex-col gap-6 p-6 dark:text-gray-200">
-          <li onClick={() => setOpen(false)} className="hover:text-blue-600 cursor-pointer">
+          <Link href="/" onClick={() => setOpen(false)} className="hover:text-blue-600 cursor-pointer">
             Home
-          </li>
+          </Link>
           <li
             onClick={() => setOpen(false)}
             className="flex items-center gap-2 hover:text-blue-600 cursor-pointer"

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { OTPForm } from "@/app/Component/otp-form";
+import { OTPForm } from "../../../Component/User/otp-form";
 
 export default function OTPPage() {
   return (
