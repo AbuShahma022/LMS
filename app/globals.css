@@ -1,21 +1,68 @@
 @import "tailwindcss";
 
-html,
-body {
-  
-  width: 100%;
-  background-color: var(--background);
-  color: var(--foreground);
+
+/* Dark mode selector */
+@custom-variant dark (&:is(.dark *));
+
+/* ================= THEME TOKENS ================= */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
 }
 
+/* ================= LIGHT ================= */
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --surface: #ffffff;
+  --radius: 0.625rem;
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+
+  --border: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
 }
 
-:root.dark {
-  --background: #0f172a;
-  --foreground: #f8fafc;
-  --surface: #020617;
+/* ================= DARK ================= */
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+
+  --border: oklch(1 0 0 / 10%);
+  --ring: oklch(0.556 0 0);
+}
+
+/* ================= BASE ================= */
+@layer base {
+  html {
+    @apply antialiased scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
+
+  button {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-ring;
+  }
 }
