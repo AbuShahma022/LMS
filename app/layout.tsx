@@ -4,9 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "./Component/Navbar";
 import Footer from "./Component/Footer";
-import ThemeProvider from "./Component/Context/ThemeContext";
-import RegistrationComponent from "./Component/User/RegistrationComponent";
-import UserComponent from "./Component/User/UserComponent";
+import { ThemeProvider } from "./Component/Context/themeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,11 +23,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className="overflow-x-hidden">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
@@ -38,12 +36,15 @@ export default function RootLayout({
           strategy="beforeInteractive"
           type="module"
         />
-        <ThemeProvider>
+
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Navbar />
           {children}
-          
-
-
           <Footer />
         </ThemeProvider>
       </body>

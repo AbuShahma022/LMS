@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   RiMenu3Line,
   RiCloseLine,
@@ -8,12 +8,25 @@ import {
   RiMoonLine,
   RiSunLine,
 } from "react-icons/ri";
-import { useTheme } from "../Component/Context/ThemeContext";
+import { useTheme } from "next-themes"
 import Link from "next/link";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const { isDark, toggleTheme } = useTheme();
+  const { theme,setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+useEffect(() => {
+  setMounted(true);
+}, []);
+
+if (!mounted) return null;
+
+const isDark = theme === "dark";
+
+const toggleTheme = () => {
+  setTheme(isDark ? "light" : "dark");
+};
 
   return (
     <>
